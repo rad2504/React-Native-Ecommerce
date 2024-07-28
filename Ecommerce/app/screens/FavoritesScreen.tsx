@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, Image, SafeAreaView, TouchableOpacity
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { ProductContext } from '../context/ProductContext';
 import { FavoritesContext } from '../context/FavoriteContext';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 type Product = {
   id: string;
@@ -63,7 +64,7 @@ const FavoritesScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.WHITE100,
     paddingHorizontal: 8,
   },
   columnWrapper: {
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
   productItem: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: Colors.BACKBUTTONBACKGROUND,
     borderRadius: 10,
     marginHorizontal: 8,
     marginBottom: 10,

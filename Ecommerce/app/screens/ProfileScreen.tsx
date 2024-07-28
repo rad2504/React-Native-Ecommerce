@@ -1,3 +1,4 @@
+import { Colors } from '@/constants/Colors';
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 
@@ -49,7 +50,7 @@ const ProfileScreen = ({route,navigation}:{route:any, navigation:any}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.WHITE100,
   },
   profileContainer: {
     flexDirection: 'row',

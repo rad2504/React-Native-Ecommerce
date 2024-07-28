@@ -33,5 +33,7 @@ export const Colors = {
   ERROR: 'red',
   BACKGROUND_LIGHT2: "#F4F4F4",
   BLACK: "#000000",
-  BLACK100:"#272727"
+  BLACK100: "#272727",
+  BACKBUTTONBACKGROUND: "#f0f0f0",
+  WHITE100:'#fff'
 };

@@ -9,6 +9,7 @@ import { TEXT } from '@/constants/Text';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from 'expo-router';
 import { RootStackParamList } from '../_layout';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 export default function ShopScreen() {
   const [searchText, setSearchText] = useState('');
@@ -237,7 +238,7 @@ export default function ShopScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.WHITE100
   },
   scrollContainer: {
     paddingVertical: 20,
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     height: 40,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: Colors.BACKBUTTONBACKGROUND,
     borderRadius: 20,
     paddingHorizontal: 15,
   },
@@ -378,7 +379,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    color: '#fff',
+    color: Colors.WHITE100,
   },
   resultsCount: {
     fontSize: 16,
@@ -394,7 +395,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: '80%',
-    backgroundColor: '#fff',
+    backgroundColor: Colors.WHITE100,
     borderRadius: 10,
     padding: 20,
     alignItems: 'center',

@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { TitleText } from '../../components/TitleText';
 import { Colors } from '../../constants/Colors';
 import { useAddress } from '../context/AddressContext';
+import { TEXT } from '@/constants/Text';
 
 
 export default function AddressDetailsScreen({ navigation }:{navigation:any}) {
@@ -24,7 +25,7 @@ export default function AddressDetailsScreen({ navigation }:{navigation:any}) {
           {`${address.streetAddress}, ${address.city}, ${address.state} ${address.postcode}`}
         </Text>
         <TouchableOpacity onPress={() => handleEditAddress(address)} style={styles.editButton}>
-          <Text style={styles.editButtonText}>Edit</Text>
+                <Text style={styles.editButtonText}>{TEXT.EDIT_BUTTON_ADDRESS}</Text>
         </TouchableOpacity>
       </View>
     ));
@@ -38,16 +39,16 @@ export default function AddressDetailsScreen({ navigation }:{navigation:any}) {
       <TitleText>Address Details</TitleText>
       {addresses.length === 0 ? (
         <View style={styles.noAddressContainer}>
-          <Text style={styles.noAddressText}>Don't have an address? </Text>
+                  <Text style={styles.noAddressText}>{TEXT.DONT_HAVE_ADDRESS}</Text>
           <TouchableOpacity onPress={handleAddAddress}>
-            <Text style={styles.addButtonText}>Add</Text>
+                      <Text style={styles.addButtonText}>{TEXT.ADD_ADDRESS}</Text>
           </TouchableOpacity>
         </View>
       ) : (
         <>
           {renderAddressList()}
           <TouchableOpacity onPress={handleAddAddress} style={styles.addMoreButton}>
-            <Text style={styles.addMoreButtonText}>Add More</Text>
+                          <Text style={styles.addMoreButtonText}>{TEXT.ADD_MORE_BUTTON_ADDRESS}</Text>
           </TouchableOpacity>
         </>
       )}
@@ -68,12 +69,12 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: Colors.BACKBUTTONBACKGROUND,
     alignItems: 'center',
     justifyContent: 'center',
   },
   addressContainer: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: Colors.BACKBUTTONBACKGROUND,
     borderRadius: 8,
     padding: 15,
     flexDirection: 'row',
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   addMoreButtonText: {
-    color: '#fff',
+    color: Colors.WHITE100,
     fontSize: 16,
   },
 });

@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   buttonText: {
-    color: '#fff',
+    color: Colors.WHITE100,
     fontSize: 16,
     fontWeight: 'bold',
   },

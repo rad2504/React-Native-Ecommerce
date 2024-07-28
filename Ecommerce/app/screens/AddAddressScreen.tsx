@@ -6,6 +6,7 @@ import { Button } from '../../components/Button';
 import { NewTextInput } from '../../components/NewTextInput';
 import { Colors } from '../../constants/Colors';
 import { useAddress } from '../context/AddressContext';
+import { TEXT } from '@/constants/Text';
 
 
 export default function AddAddressScreen({ navigation, route }:{navigation:any,route:any}) {
@@ -43,36 +44,36 @@ export default function AddAddressScreen({ navigation, route }:{navigation:any,r
       <TouchableOpacity style={styles.backButton} onPress={handleBack}>
         <Ionicons name="arrow-back" size={24} color="black" />
       </TouchableOpacity>
-      <TitleText>Add Address</TitleText>
+          <TitleText>{TEXT.ADD_ADDRESS}</TitleText>
       <NewTextInput
-        placeholder="Street Address"
+        placeholder={TEXT.STREET_ADDRESS}
         keyboardType="default"
         autoCapitalize="none"
         value={streetAddress}
         onChangeText={setStreetAddress}
       />
       <NewTextInput
-        placeholder="City"
+        placeholder={TEXT.CITY}
         keyboardType="default"
         autoCapitalize="none"
         value={city}
         onChangeText={setCity}
       />
       <NewTextInput
-        placeholder="State"
+        placeholder={TEXT.STATE}
         keyboardType="default"
         autoCapitalize="none"
         value={state}
         onChangeText={setState}
       />
       <NewTextInput
-        placeholder="Postcode"
+        placeholder={TEXT.ZIP_CODE}
         keyboardType="default"
         autoCapitalize="none"
         value={postcode}
         onChangeText={setPostcode}
       />
-      <Button onPress={handleSave} title="SAVE" />
+          <Button onPress={handleSave} title={TEXT.SAVE_BUTTON} />
     </View>
   );
 }
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: Colors.BACKBUTTONBACKGROUND,
     alignItems: 'center',
     justifyContent: 'center',
   },

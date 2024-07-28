@@ -1,4 +1,4 @@
-import { CATEGORIES, PRODUCTS } from "./Constants";
+
 
 // Text constants
 export const TEXT = {
@@ -38,5 +38,15 @@ export const TEXT = {
   RECEIPT_TAB: 'Receipt',
   PROFILE_TAB: 'Profile',
   FAVORITE_TAB: 'Favorites',
-  PRODUCTS: 'Products'
+  PRODUCTS: 'Products',
+  ADD_ADDRESS: 'Add Address',
+  STREET_ADDRESS: 'Street Address',
+  CITY: 'City',
+  STATE: 'State',
+  ZIP_CODE: 'Zip code',
+  SAVE_BUTTON: 'Save',
+  DONT_HAVE_ADDRESS: 'Dont have an address? ',
+  EDIT_BUTTON_ADDRESS:'Edit',
+  ADD_BUTTON_ADDRESS: 'Add',
+  ADD_MORE_BUTTON_ADDRESS: 'Add More'
 }

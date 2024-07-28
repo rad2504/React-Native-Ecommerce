@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, SafeAreaView, Dimensions, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 type Product = {
   id: string;
@@ -71,7 +72,7 @@ const AllProductsScreen = ({ route }: { route: any }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.WHITE100,
     paddingHorizontal: 8,
   },
   columnWrapper: {
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
   productItem: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: Colors.BACKBUTTONBACKGROUND,
     borderRadius: 10,
     marginHorizontal: 8,
     marginBottom: 10,
