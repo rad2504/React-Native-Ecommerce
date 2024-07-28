@@ -23,7 +23,7 @@ const ProfileScreen = ({route,navigation}:{route:any, navigation:any}) => {
         </View>
       </View>
       <View style={styles.optionContainer}>
-        <TouchableOpacity style={styles.option} onPress={() =>navigation.navigate("AddAddressScreen")}>
+        <TouchableOpacity style={styles.option} onPress={() =>navigation.navigate("AddressDetailsScreen")}>
           <Text style={styles.optionText}>Address</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.option}>

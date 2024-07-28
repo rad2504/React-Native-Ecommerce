@@ -12,10 +12,8 @@ import { RootStackParamList } from '../_layout';
 
 export default function ShopScreen() {
   const [searchText, setSearchText] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
   const [selectedSort, setSelectedSort] = useState<string>('recommended');
   const [isModalVisible, setModalVisible] = useState(false);
-  const [selectedGender, setSelectedGender] = useState<string | null>(null);
   const [modalType, setModalType] = useState<string>('sort');
 
 
@@ -35,18 +33,15 @@ export default function ShopScreen() {
   }, [searchText, products]);
 
   const sortedProducts = useMemo(() => {
-    console.log(`Sorting by: ${selectedSort}`); // Debug log
 
     const parsedProducts = filteredProducts.map(product => {
       const parsedPrice = parseFloat(product.price.replace(/[^0-9.-]+/g, ''));
-      console.log(`Parsed price for ${product.name}: ${parsedPrice}`);
+    
       return {
         ...product,
         parsedPrice: isNaN(parsedPrice) ? 0 : parsedPrice,
       };
     });
-
-    console.log('Parsed products:', parsedProducts);
 
     switch (selectedSort) {
       case 'newest':
@@ -107,12 +102,6 @@ export default function ShopScreen() {
     setSelectedSort(option);
     closeModal();
   };
-    const handleGenderSelection = (option: any) => {
-    console.log(`Selected Gender: ${option}`); 
-    setSelectedGender(option);
-    closeModal();
-  };
-
   const renderFilterOptions = () => (
     <View style={styles.filterContainer}>
       <TouchableOpacity style={styles.filterOption} onPress={openModal}>

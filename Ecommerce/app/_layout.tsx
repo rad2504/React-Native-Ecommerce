@@ -22,6 +22,9 @@ import ProfileScreen from './screens/ProfileScreen';
 import NotificationScreen from './screens/NotificationsScreen';
 import AddAddressScreen from './screens/AddAddressScreen';
 import AddressDetailsScreen from './screens/AddressDetailsScreen';
+import { AddressProvider } from './context/AddressContext';
+import { FavoritesProvider } from './context/FavoriteContext';
+import { ProductProvider } from './context/ProductContext';
 
 export type Address = {
   streetAddress: string;
@@ -39,7 +42,7 @@ export type RootStackParamList = {
   SurveyScreen: undefined;
   ShopScreen: undefined;
   AllProductsScreen: { products: Product[] }; 
-  FavoritesScreen: undefined
+  FavoritesScreen: undefined; 
   NotificationsScreen: undefined
   ProfileScreen: { email: string }
   AddAddressScreen: { address?: Address }; 
@@ -116,6 +119,9 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+     <ProductProvider>
+      <AddressProvider>
+         <FavoritesProvider>
       <NavigationContainer independent={true}>
         <Stack.Navigator initialRouteName="SignInScreen">
           <Stack.Screen name="SignInScreen" component={SignInScreen} />
@@ -129,7 +135,11 @@ export default function RootLayout() {
           <Stack.Screen name="AddAddressScreen" component={AddAddressScreen} />
           <Stack.Screen name="AddressDetailsScreen" component={AddressDetailsScreen} />
         </Stack.Navigator>
-      </NavigationContainer>
+        </NavigationContainer>
+        </FavoritesProvider>
+        </AddressProvider>
+        </ProductProvider>
+        
     </ThemeProvider>
   );
 }

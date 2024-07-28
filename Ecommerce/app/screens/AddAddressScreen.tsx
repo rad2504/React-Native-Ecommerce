@@ -1,13 +1,16 @@
-import { StyleSheet, TouchableOpacity,View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { TitleText } from '../../components/TitleText';
 import { Button } from '../../components/Button';
 import { NewTextInput } from '../../components/NewTextInput';
 import { Colors } from '../../constants/Colors';
-import { useState } from 'react';
+import { useAddress } from '../context/AddressContext';
 
-export default function AddAddressScreen({ navigation, route }: { navigation: any, route: any }) {
+
+export default function AddAddressScreen({ navigation, route }:{navigation:any,route:any}) {
   const { address } = route.params || {};
+  const { addresses, setAddresses } = useAddress();
 
   const [streetAddress, setStreetAddress] = useState(address?.streetAddress || '');
   const [city, setCity] = useState(address?.city || '');
@@ -15,12 +18,20 @@ export default function AddAddressScreen({ navigation, route }: { navigation: an
   const [postcode, setPostcode] = useState(address?.postcode || '');
 
   const handleSave = () => {
-    navigation.navigate('AddressDetailsScreen', {
-      streetAddress,
-      city,
-      state,
-      postcode,
-    });
+    const newAddress = { streetAddress, city, state, postcode };
+
+    if (address) {
+      // Update existing address
+      const updatedAddresses = addresses.map((addr: any) =>
+        addr === address ? newAddress : addr
+      );
+      setAddresses(updatedAddresses);
+    } else {
+      // Add new address
+      setAddresses([...addresses, newAddress]);
+    }
+
+    navigation.navigate('AddressDetailsScreen');
   };
 
   const handleBack = () => {
@@ -77,7 +88,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 50,
     left: 20,
-    zIndex: 1,
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -86,3 +96,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
