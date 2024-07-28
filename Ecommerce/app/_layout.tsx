@@ -12,7 +12,6 @@ import EmailForResetPasswordScreen from './screens/EmailForResetPasswordScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import PasswordSignInScreen from './screens/PasswordSignInScreen';
 import SignInScreen from './screens/SignInScreen';
-import SurveyScreen from './screens/SurveyScreen';
 import AllProductsScreen from './screens/AllProductsScreen';
 import { Product } from './models/Product';
 import FavoritesScreen from './screens/FavoritesScreen';
@@ -21,7 +20,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProfileScreen from './screens/ProfileScreen';
 import NotificationScreen from './screens/NotificationsScreen';
+import AddAddressScreen from './screens/AddAddressScreen';
+import AddressDetailsScreen from './screens/AddressDetailsScreen';
 
+export type Address = {
+  streetAddress: string;
+  city: string;
+  state: string;
+  postcode: string;
+};
 // Define stack parameter list
 export type RootStackParamList = {
   SignInScreen: undefined;
@@ -34,7 +41,9 @@ export type RootStackParamList = {
   AllProductsScreen: { products: Product[] }; 
   FavoritesScreen: undefined
   NotificationsScreen: undefined
-  ProfileScreen: undefined
+  ProfileScreen: { email: string }
+  AddAddressScreen: { address?: Address }; 
+  AddressDetailsScreen: Address; 
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -42,7 +51,8 @@ const Tab = createBottomTabNavigator();
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-const TabNavigator = () => {
+const TabNavigator = ({ route }:{route:any}) => {
+  const { email } = route.params;
   return (
     <Tab.Navigator>
       <Tab.Screen 
@@ -76,6 +86,7 @@ const TabNavigator = () => {
        <Tab.Screen 
         name="Profile" 
         component={ProfileScreen} 
+        initialParams={{ email }}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-outline" color={color} size={size} />
@@ -112,10 +123,11 @@ export default function RootLayout() {
           <Stack.Screen name="CreateAccountScreen" component={CreateAccountScreen} />
           <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
           <Stack.Screen name="EmailForResetPasswordScreen" component={EmailForResetPasswordScreen} />
-          <Stack.Screen name="SurveyScreen" component={SurveyScreen} />
           <Stack.Screen name="ShopScreen" component={TabNavigator} />
           <Stack.Screen name="AllProductsScreen" component={AllProductsScreen} />
           <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
+          <Stack.Screen name="AddAddressScreen" component={AddAddressScreen} />
+          <Stack.Screen name="AddressDetailsScreen" component={AddressDetailsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>

@@ -37,29 +37,10 @@ const styles = StyleSheet.create({
   centerContainer: {
     alignItems: 'center',
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 24,
-    marginTop: 24,
-  },
   socialIcon: {
     width: 100,
     height: 100,
     marginHorizontal: 10,
-  },
-  button: {
-    width: '50%',
-    backgroundColor: Colors.BUTTON,
-    borderRadius: 25,
-    alignItems: 'center',
-    marginBottom: 20,
-    paddingVertical: 15,
-  },
-  buttonText: {
-    color: Colors.BACKGROUND,
-    fontSize: 16,
-    fontWeight: 'bold',
-
   },
 });
 

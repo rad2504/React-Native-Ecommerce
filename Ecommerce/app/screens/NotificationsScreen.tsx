@@ -1,36 +1,48 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-const NotificationScreen = () => {
+const NotificationScreen = ({ navigation}: { navigation: any }) => {
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.title}>Notification Screen</Text>
-        <Text style={styles.description}>This is where you can view your notifications.</Text>
+    <View style={styles.noResultsContainer}>
+        <Image source={require('@/assets/images/notification-bell.png')} style={styles.image} />
+        <Text style={styles.message}>No Notifications Yet</Text>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ShopScreen')} >
+          <Text style={styles.buttonText}>Explore Categories</Text>
+        </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  content: {
+
+  noResultsContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 20,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
+  image: {
+    width: 150,
+    height: 150,
+    marginBottom: 20,
   },
-  description: {
+  message: {
     fontSize: 16,
-    color: '#555',
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: '#007bff',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  buttonText: {
+    fontSize: 16,
+    color: '#fff',
   },
 });
 

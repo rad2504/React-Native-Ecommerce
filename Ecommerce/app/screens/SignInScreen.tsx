@@ -74,34 +74,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
   },
-  title: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    borderColor: Colors.BORDER,
-    borderRadius: 5,
-    marginBottom: 20,
-    padding: 10,
-    fontSize: 16,
-    backgroundColor: Colors.INPUT_BACKGROUND,
-  },
-  button: {
-    width: '100%',
-    backgroundColor:Colors.BUTTON,
-    borderRadius: 25,
-    alignItems: 'center',
-    marginBottom: 20,
-    paddingVertical: 15,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
   signupText: {
     color: Colors.BLACK,
     marginBottom: 70,
@@ -111,29 +83,8 @@ const styles = StyleSheet.create({
     color: Colors.BLACK100,
     fontWeight: 'bold',
   },
-  socialButton: {
-    width: '100%',
-    borderColor: Colors.BORDER,
-    backgroundColor: Colors.INPUT_BACKGROUND,
-    borderRadius: 25,
-    marginBottom: 10,
-    paddingVertical: 15,
-    flexDirection: 'row'
-  },
   errorText: {
     color: Colors.ERROR,
     marginBottom: 10,
-  },
-  socialIcon: {
-    width: 22,
-    height: 22,
-    marginHorizontal: 10,
-  },
-  buttonDisabled: {
-    backgroundColor: Colors.BUTTON_DISABLED,
-  },
-  socialButtonText: {
-    fontSize: 16,
-    fontWeight: 'bold',
   },
 });
