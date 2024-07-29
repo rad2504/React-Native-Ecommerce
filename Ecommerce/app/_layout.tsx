@@ -25,6 +25,7 @@ import AddressDetailsScreen from './screens/AddressDetailsScreen';
 import { AddressProvider } from './context/AddressContext';
 import { FavoritesProvider } from './context/FavoriteContext';
 import { ProductProvider } from './context/ProductContext';
+import CartScreen from './screens/CartScreen';
 
 export type Address = {
   streetAddress: string;
@@ -47,6 +48,7 @@ export type RootStackParamList = {
   ProfileScreen: { email: string }
   AddAddressScreen: { address?: Address }; 
   AddressDetailsScreen: Address; 
+  CartScreen:undefined
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -76,8 +78,16 @@ const TabNavigator = ({ route }:{route:any}) => {
           ),
         }} 
       />
-
-       <Tab.Screen 
+      <Tab.Screen 
+        name="Cart" 
+        component={CartScreen} 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="cart-outline" color={color} size={size} />
+          ),
+        }} 
+      />
+      <Tab.Screen 
         name="Notifications" 
         component={NotificationScreen} 
         options={{
@@ -86,7 +96,7 @@ const TabNavigator = ({ route }:{route:any}) => {
           ),
         }} 
       />
-       <Tab.Screen 
+      <Tab.Screen 
         name="Profile" 
         component={ProfileScreen} 
         initialParams={{ email }}
@@ -97,7 +107,6 @@ const TabNavigator = ({ route }:{route:any}) => {
         }} 
       />
     </Tab.Navigator>
-    
   );
 }
 
@@ -133,7 +142,8 @@ export default function RootLayout() {
           <Stack.Screen name="AllProductsScreen" component={AllProductsScreen} />
           <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
           <Stack.Screen name="AddAddressScreen" component={AddAddressScreen} />
-          <Stack.Screen name="AddressDetailsScreen" component={AddressDetailsScreen} />
+                <Stack.Screen name="AddressDetailsScreen" component={AddressDetailsScreen} />
+                <Stack.Screen name="CartScreen" component={CartScreen} />
         </Stack.Navigator>
         </NavigationContainer>
         </FavoritesProvider>

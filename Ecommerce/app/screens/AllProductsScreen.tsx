@@ -1,34 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, FlatList, Image, SafeAreaView, Dimensions, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useFavorites } from '../context/FavoriteContext';
+import { Product } from '../models/Product';
 
-type Product = {
-  id: string;
-  name: string;
-  price: string;
-  oldPrice?: string;
-  image: string;
-};
+interface AllProductsScreenProps {
+  route: {
+    params: {
+      products: Product[];
+    };
+  };
+}
 
-const AllProductsScreen = ({ route }: { route: any }) => {
-  const { products } = route.params as { products: Product[] };
-  const [favoriteProducts, setFavoriteProducts] = useState<Set<string>>(new Set());
+const AllProductsScreen: React.FC<AllProductsScreenProps> = ({ route }) => {
+  const { products } = route.params;
+  const { favoriteProducts, toggleFavorite } = useFavorites();
 
   const { width } = Dimensions.get('window');
   const numColumns = width > 600 ? 3 : 2;
-
-  const toggleFavorite = (productId: string) => {
-    setFavoriteProducts((prevFavorites) => {
-      const updatedFavorites = new Set(prevFavorites);
-      if (updatedFavorites.has(productId)) {
-        updatedFavorites.delete(productId);
-      } else {
-        updatedFavorites.add(productId);
-      }
-      return updatedFavorites;
-    });
-  };
 
   const renderProductItem = ({ item }: { item: Product }) => {
     const isFavorite = favoriteProducts.has(item.id);
@@ -41,10 +30,10 @@ const AllProductsScreen = ({ route }: { route: any }) => {
             style={styles.favoriteIcon}
             onPress={() => toggleFavorite(item.id)}
           >
-            <Icon 
-              name={isFavorite ? 'favorite' : 'favorite-border'} 
-              size={24} 
-              color={isFavorite ? '#ff6347' : '#ccc'} 
+            <Icon
+              name={isFavorite ? 'favorite' : 'favorite-border'}
+              size={24}
+              color={isFavorite ? '#ff6347' : '#ccc'}
             />
           </TouchableOpacity>
         </View>
@@ -72,7 +61,6 @@ const AllProductsScreen = ({ route }: { route: any }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.WHITE100,
     paddingHorizontal: 8,
   },
   columnWrapper: {
@@ -85,7 +73,7 @@ const styles = StyleSheet.create({
   productItem: {
     flex: 1,
     padding: 10,
-    backgroundColor: Colors.BACKBUTTONBACKGROUND,
+    backgroundColor: '#f8f8f8',
     borderRadius: 10,
     marginHorizontal: 8,
     marginBottom: 10,
@@ -116,12 +104,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#333',
     marginBottom: 5,
+    textAlign: 'center',
   },
   oldPrice: {
     fontSize: 12,
     color: '#888',
     textDecorationLine: 'line-through',
+    textAlign: 'center',
   },
 });
 
 export default AllProductsScreen;
+

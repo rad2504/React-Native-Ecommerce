@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 16,
-    color: '#333',
+    color: Colors.PRODUCT_PRICE,
     textAlign: 'center',
     marginBottom: 20,
   },
   button: {
-    backgroundColor: '#007bff',
+    backgroundColor: Colors.NOTIFICATION_BUTTON,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

@@ -1,12 +1,6 @@
 import React, { createContext, useState, ReactNode } from 'react';
+import { Product } from '../models/Product';
 
-type Product = {
-  id: string;
-  name: string;
-  price: string;
-  oldPrice?: string;
-  image: string;
-};
 
 type ProductContextType = {
   allProducts: Product[];

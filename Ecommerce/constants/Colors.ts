@@ -35,5 +35,13 @@ export const Colors = {
   BLACK: "#000000",
   BLACK100: "#272727",
   BACKBUTTONBACKGROUND: "#f0f0f0",
-  WHITE100:'#fff'
+  WHITE100: '#fff',
+  CART_ITEM: '#f8f8f8',
+  CART_ITEM_PRICE: '#e74c3c',
+  OLD_PRICE: '#888',
+  PRODUCT_PRICE: '#333',
+  NOTIFICATION_BUTTON: '#007bff',
+  PROFILE_EMAIL: '#777',
+  PROFILE_OPTION: '#ccc',
+  PROFILE_EDIT: 'purple',
 };

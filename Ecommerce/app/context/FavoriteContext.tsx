@@ -1,17 +1,17 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-type FavoritesContextType = {
+interface FavoritesContextType {
   favoriteProducts: Set<string>;
   toggleFavorite: (productId: string) => void;
-};
+}
 
 export const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
 
-export const FavoritesProvider= ({ children }:{children:any}) => {
+export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [favoriteProducts, setFavoriteProducts] = useState<Set<string>>(new Set());
 
   const toggleFavorite = (productId: string) => {
-    setFavoriteProducts(prevFavorites => {
+    setFavoriteProducts((prevFavorites) => {
       const updatedFavorites = new Set(prevFavorites);
       if (updatedFavorites.has(productId)) {
         updatedFavorites.delete(productId);
@@ -29,11 +29,10 @@ export const FavoritesProvider= ({ children }:{children:any}) => {
   );
 };
 
-export const useFavorites = () => {
+export const useFavorites = (): FavoritesContextType => {
   const context = useContext(FavoritesContext);
   if (context === undefined) {
     throw new Error('useFavorites must be used within a FavoritesProvider');
   }
   return context;
 };
-

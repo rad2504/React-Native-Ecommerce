@@ -8,9 +8,6 @@ import { TitleText } from '../../components/TitleText'
 import { NewTextInput } from '../../components/NewTextInput'
 import {Colors } from '../../constants/Colors'
 
-
-
-
 export default function SignInScreen({ navigation }: { navigation: any }) {
 
   const [email, setEmail] = useState('');

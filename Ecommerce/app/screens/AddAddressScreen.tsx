@@ -22,13 +22,12 @@ export default function AddAddressScreen({ navigation, route }:{navigation:any,r
     const newAddress = { streetAddress, city, state, postcode };
 
     if (address) {
-      // Update existing address
+     
       const updatedAddresses = addresses.map((addr: any) =>
         addr === address ? newAddress : addr
       );
       setAddresses(updatedAddresses);
     } else {
-      // Add new address
       setAddresses([...addresses, newAddress]);
     }
 

@@ -3,15 +3,9 @@ import { View, Text, StyleSheet, FlatList, Image, SafeAreaView, TouchableOpacity
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { ProductContext } from '../context/ProductContext';
 import { FavoritesContext } from '../context/FavoriteContext';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { Product } from '../models/Product';
+import { Colors } from '@/constants/Colors';
 
-type Product = {
-  id: string;
-  name: string;
-  price: string;
-  oldPrice?: string;
-  image: string;
-};
 
 const FavoritesScreen = () => {
   const { allProducts } = useContext(ProductContext) ?? { allProducts: [] };
@@ -106,12 +100,12 @@ const styles = StyleSheet.create({
   },
   productPrice: {
     fontSize: 14,
-    color: '#333',
+    color: Colors.PRODUCT_PRICE,
     marginBottom: 5,
   },
   oldPrice: {
     fontSize: 12,
-    color: '#888',
+    color:Colors.OLD_PRICE ,
     textDecorationLine: 'line-through',
   },
 });

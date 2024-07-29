@@ -9,7 +9,9 @@ import { TEXT } from '@/constants/Text';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from 'expo-router';
 import { RootStackParamList } from '../_layout';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { Colors } from '@/constants/Colors';
+import { addProductToCart } from '../services/ApiService';
+import { Alert } from 'react-native';
 
 export default function ShopScreen() {
   const [searchText, setSearchText] = useState('');
@@ -33,10 +35,10 @@ export default function ShopScreen() {
     );
   }, [searchText, products]);
 
-  const sortedProducts = useMemo(() => {
+    const sortedProducts = useMemo(() => {
 
     const parsedProducts = filteredProducts.map(product => {
-      const parsedPrice = parseFloat(product.price.replace(/[^0-9.-]+/g, ''));
+    const parsedPrice = parseFloat(product.price.replace(/[^0-9.-]+/g, ''));
     
       return {
         ...product,
@@ -68,8 +70,19 @@ export default function ShopScreen() {
       <Text style={styles.categoryText}>{item.name}</Text>
     </TouchableOpacity>
   );
-
-  const renderProductItem = ({ item }: { item:any }) => (
+  const addToCart = async (productId: any) => {
+  try {
+    console.log('Adding product to cart:', { userId: 5, date: new Date().toISOString().split('T')[0], products: [{ productId, quantity: 1 }] });
+    const response = await addProductToCart(5, new Date().toISOString().split('T')[0], [{ productId, quantity: 1 }]);
+    if (response) {
+      Alert.alert("Success", "Product added to cart successfully!");
+    }
+  } catch (error) {
+    console.error('Error adding product to cart:', error);
+    Alert.alert("Error", "Failed to add product to cart.");
+  }
+};
+const renderProductItem = ({ item }:{item:any}) => (
     <View style={styles.productItem}>
       <View style={styles.productImageContainer}>
         <Image source={{ uri: item.image }} style={styles.productImage} />
@@ -85,11 +98,18 @@ export default function ShopScreen() {
         </TouchableOpacity>
       </View>
       <Text style={styles.productName}>{item.name}</Text>
-      <Text style={styles.productPrice}>{item.price}</Text>
+      <View style={styles.productPriceContainer}>
+        <Text style={styles.productPrice}>{item.price}</Text>
+        <TouchableOpacity
+          style={styles.cartButton}
+          onPress={() => addToCart(item.id)}
+        >
+          <Icon name="cart-outline" size={24} color="#333" />
+        </TouchableOpacity>
+      </View>
       {item.oldPrice && <Text style={styles.oldPrice}>{item.oldPrice}</Text>}
     </View>
   );
-
    const openModal = (type:any) => {
     setModalType(type);
     setModalVisible(true);
@@ -103,33 +123,17 @@ export default function ShopScreen() {
     setSelectedSort(option);
     closeModal();
   };
-  const renderFilterOptions = () => (
-    <View style={styles.filterContainer}>
-      <TouchableOpacity style={styles.filterOption} onPress={openModal}>
-        <Text style={[styles.filterText, selectedSort ? styles.selectedFilter : undefined]}>Sort by</Text>
-      </TouchableOpacity>
-    </View>
-  );
-
-   const renderModalContent = () => {
-    if (modalType === 'sort') {
+  const renderFilterOptions = () => {
+    if (sortedProducts.length > 0) {
       return (
-        <>
-          <TouchableOpacity onPress={() => handleSortSelection('recommended')}>
-            <Text style={[styles.sortOptionText, selectedSort === 'recommended' && styles.selectedSortOption]}>Recommended</Text>
+        <View style={styles.filterContainer}>
+          <TouchableOpacity style={styles.filterOption} onPress={openModal}>
+            <Text style={[styles.filterText, selectedSort ? styles.selectedFilter : undefined]}>Sort by</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleSortSelection('newest')}>
-            <Text style={[styles.sortOptionText, selectedSort === 'newest' && styles.selectedSortOption]}>Newest</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleSortSelection('lowest')}>
-            <Text style={[styles.sortOptionText, selectedSort === 'lowest' && styles.selectedSortOption]}>Lowest - Highest Price</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleSortSelection('highest')}>
-            <Text style={[styles.sortOptionText, selectedSort === 'highest' && styles.selectedSortOption]}>Highest - Lowest Price</Text>
-          </TouchableOpacity>
-        </>
+        </View>
       );
-    } 
+    }
+    return null;
   };
 
   return (
@@ -145,7 +149,7 @@ export default function ShopScreen() {
           />
         </View>
 
-        {searchText === '' ? (
+         {searchText === '' ? (
           <>
             <View style={styles.section}>
               <View style={styles.sectionHeader}>
@@ -157,7 +161,6 @@ export default function ShopScreen() {
                 renderItem={renderCategoryItem}
                 keyExtractor={(item) => item.id}
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.categoryList}
               />
             </View>
             <View style={styles.section}>
@@ -238,7 +241,8 @@ export default function ShopScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.WHITE100
+    backgroundColor: Colors.WHITE100,
+    paddingHorizontal: 20,
   },
   scrollContainer: {
     paddingVertical: 20,
@@ -248,6 +252,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     marginBottom: 20,
+    backgroundColor: Colors.BACKBUTTONBACKGROUND,
   },
   searchIcon: {
     marginRight: 10,
@@ -266,7 +271,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
     marginBottom: 10,
   },
   sectionTitle: {
@@ -275,10 +279,7 @@ const styles = StyleSheet.create({
   },
   seeAll: {
     fontSize: 14,
-    color: '#007bff',
-  },
-  categoryList: {
-    paddingLeft: 20,
+    color: Colors.NOTIFICATION_BUTTON,
   },
   categoryItem: {
     marginRight: 15,
@@ -295,29 +296,34 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   productList: {
-    paddingHorizontal: 20,
+    paddingBottom: 16,
   },
   columnWrapper: {
     justifyContent: 'space-between',
   },
-  productItem: {
+  
+   productItem: {
     flex: 1,
-    marginBottom: 20,
+    backgroundColor: Colors.WHITE100,
+    borderRadius: 8,
+    padding: 8,
+    margin: 8,
+    alignItems: 'center',
   },
   productImageContainer: {
     position: 'relative',
     marginBottom: 10,
   },
   productImage: {
-    width: '100%',
+    width: 150,
     height: 150,
-    borderRadius: 10,
+    marginBottom:8,
   },
   favoriteIcon: {
     position: 'absolute',
     top: 10,
     right: 10,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: Colors.BLACK,
     borderRadius: 12,
     padding: 5,
   },
@@ -348,11 +354,11 @@ const styles = StyleSheet.create({
   },
   filterText: {
     fontSize: 14,
-    color: '#333',
+    color: Colors.PRODUCT_PRICE,
   },
   selectedFilter: {
     fontWeight: 'bold',
-    color: '#007bff',
+    color: Colors.NOTIFICATION_BUTTON,
   },
   noResultsContainer: {
     flex: 1,
@@ -367,12 +373,12 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 16,
-    color: '#333',
+    color: Colors.PRODUCT_PRICE,
     textAlign: 'center',
     marginBottom: 20,
   },
   button: {
-    backgroundColor: '#007bff',
+    backgroundColor: Colors.NOTIFICATION_BUTTON,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -391,11 +397,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: Colors.BLACK,
   },
   modalContent: {
     width: '80%',
-    backgroundColor: Colors.WHITE100,
+    backgroundColor: Colors.BACKBUTTONBACKGROUND,
     borderRadius: 10,
     padding: 20,
     alignItems: 'center',
@@ -406,11 +412,18 @@ const styles = StyleSheet.create({
   },
   selectedSortOption: {
     fontWeight: 'bold',
-    color: '#007bff',
+    color: Colors.NOTIFICATION_BUTTON,
   },
   closeButton: {
     marginTop: 20,
   },
+
+  productPriceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  cartButton: {
+    marginLeft: 10,
+  },
 });
-
-

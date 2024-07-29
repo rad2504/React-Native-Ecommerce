@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#f4f4f4',
+    backgroundColor: Colors.BACKGROUND_LIGHT2,
     borderRadius: 10,
     margin: 20,
   },
@@ -75,10 +75,10 @@ const styles = StyleSheet.create({
   },
   email: {
     fontSize: 16,
-    color: '#777',
+    color: Colors.PROFILE_EMAIL,
   },
   edit: {
-    color: 'purple',
+    color: Colors.PROFILE_EDIT,
     marginTop: 5,
   },
   optionContainer: {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   option: {
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: Colors.PROFILE_OPTION,
   },
   optionText: {
     fontSize: 18,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   signOutText: {
-    color: 'red',
+    color: Colors.ERROR,
     fontSize: 18,
   },
 });
