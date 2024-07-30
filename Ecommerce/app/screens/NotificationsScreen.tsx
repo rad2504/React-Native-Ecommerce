@@ -1,15 +1,18 @@
 import { Colors } from '@/constants/Colors';
+import { TEXT } from '@/constants/Text';
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const NotificationScreen = ({ navigation}: { navigation: any }) => {
-
+ const handleExploreButton = () => {
+    navigation.navigate('ShopScreen');
+  };
   return (
     <View style={styles.noResultsContainer}>
         <Image source={require('@/assets/images/notification-bell.png')} style={styles.image} />
-        <Text style={styles.message}>No Notifications Yet</Text>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ShopScreen')} >
-          <Text style={styles.buttonText}>Explore Categories</Text>
+      <Text style={styles.message}>{TEXT.NO_NOTIFICATIONS}</Text>
+        <TouchableOpacity style={styles.button} onPress={handleExploreButton} >
+        <Text style={styles.buttonText}>{TEXT.EXPLORE_CATEGORIES}</Text>
         </TouchableOpacity>
       </View>
     

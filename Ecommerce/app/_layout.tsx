@@ -26,6 +26,7 @@ import { AddressProvider } from './context/AddressContext';
 import { FavoritesProvider } from './context/FavoriteContext';
 import { ProductProvider } from './context/ProductContext';
 import CartScreen from './screens/CartScreen';
+import { CartProvider } from './context/CartContext';
 
 export type Address = {
   streetAddress: string;
@@ -128,9 +129,10 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-     <ProductProvider>
-      <AddressProvider>
-         <FavoritesProvider>
+      <ProductProvider>
+        <CartProvider>
+    <AddressProvider>
+    <FavoritesProvider>
       <NavigationContainer independent={true}>
         <Stack.Navigator initialRouteName="SignInScreen">
           <Stack.Screen name="SignInScreen" component={SignInScreen} />
@@ -145,11 +147,11 @@ export default function RootLayout() {
                 <Stack.Screen name="AddressDetailsScreen" component={AddressDetailsScreen} />
                 <Stack.Screen name="CartScreen" component={CartScreen} />
         </Stack.Navigator>
-        </NavigationContainer>
-        </FavoritesProvider>
+      </NavigationContainer>
+    </FavoritesProvider>
         </AddressProvider>
-        </ProductProvider>
-        
+        </CartProvider>
+    </ProductProvider>
     </ThemeProvider>
   );
 }

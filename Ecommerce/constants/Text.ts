@@ -1,6 +1,5 @@
 
 
-// Text constants
 export const TEXT = {
   SIGN_IN: 'Sign in',
   EMAIL_PLACEHOLDER: 'Email Address',
@@ -48,5 +47,10 @@ export const TEXT = {
   DONT_HAVE_ADDRESS: 'Dont have an address? ',
   EDIT_BUTTON_ADDRESS:'Edit',
   ADD_BUTTON_ADDRESS: 'Add',
-  ADD_MORE_BUTTON_ADDRESS: 'Add More'
+  ADD_MORE_BUTTON_ADDRESS: 'Add More',
+  NO_CART_PRODUCT: 'Sorry, we dont have any cart products',
+  NO_FAVORITE_PRODUCT: 'Sorry, we dont have any favorite products',
+  NO_NOTIFICATIONS: 'No Notifications Yet',
+  EXPLORE_CATEGORIES: 'Explore Categories',
+  NO_SEARCH_PRODUCTS:'Sorry, we couldnt find any matching result for your search.'
 }

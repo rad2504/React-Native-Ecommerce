@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   errorText: {
-    color: Colors.ERROR,
+    color: Colors.TOGGLE_ICON_ERROR,
     marginBottom: 10,
   },
 });

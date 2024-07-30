@@ -5,6 +5,9 @@ import { View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity } from 'r
 const ProfileScreen = ({route,navigation}:{route:any, navigation:any}) => {
  
   const { email } = route.params;
+  const handleAddressButton = () => {
+    navigation.navigate('AddressDetailsScreen');
+  };
 
   const name = email ? email.split('@')[0] : 'User';
 
@@ -24,7 +27,7 @@ const ProfileScreen = ({route,navigation}:{route:any, navigation:any}) => {
         </View>
       </View>
       <View style={styles.optionContainer}>
-        <TouchableOpacity style={styles.option} onPress={() =>navigation.navigate("AddressDetailsScreen")}>
+        <TouchableOpacity style={styles.option} onPress={handleAddressButton}>
           <Text style={styles.optionText}>Address</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.option}>
@@ -87,7 +90,7 @@ const styles = StyleSheet.create({
   option: {
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.PROFILE_OPTION,
+    borderBottomColor: Colors.PROFILE_OPTION_TOGGLE_DISABLE,
   },
   optionText: {
     fontSize: 18,
@@ -97,7 +100,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   signOutText: {
-    color: Colors.ERROR,
+    color: Colors.TOGGLE_ICON_ERROR,
     fontSize: 18,
   },
 });

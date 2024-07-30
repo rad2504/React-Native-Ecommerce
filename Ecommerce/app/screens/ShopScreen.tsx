@@ -10,14 +10,19 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from 'expo-router';
 import { RootStackParamList } from '../_layout';
 import { Colors } from '@/constants/Colors';
-import { addProductToCart } from '../services/ApiService';
-import { Alert } from 'react-native';
+import { useFavorites } from '../context/FavoriteContext';
+import { Product } from '../models/Product';
+import { useCart } from '../context/CartContext';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function ShopScreen() {
   const [searchText, setSearchText] = useState('');
   const [selectedSort, setSelectedSort] = useState<string>('recommended');
   const [isModalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState<string>('sort');
+const { favoriteProducts, toggleFavorite } = useFavorites();
+  const { togglecart, cartProducts} = useCart()
+
 
 
   type ShopScreenNavigationProp = StackNavigationProp<RootStackParamList, 'ShopScreen'>;
@@ -25,7 +30,7 @@ export default function ShopScreen() {
 
   const {
     categories, products, selectedCategory,
-    setSelectedCategory, favoriteProducts, toggleFavorite
+    setSelectedCategory
   } = useShopScreenViewModel(selectedCategory);
 
   const filteredProducts = useMemo(() => {
@@ -70,46 +75,45 @@ export default function ShopScreen() {
       <Text style={styles.categoryText}>{item.name}</Text>
     </TouchableOpacity>
   );
-  const addToCart = async (productId: any) => {
-  try {
-    console.log('Adding product to cart:', { userId: 5, date: new Date().toISOString().split('T')[0], products: [{ productId, quantity: 1 }] });
-    const response = await addProductToCart(5, new Date().toISOString().split('T')[0], [{ productId, quantity: 1 }]);
-    if (response) {
-      Alert.alert("Success", "Product added to cart successfully!");
-    }
-  } catch (error) {
-    console.error('Error adding product to cart:', error);
-    Alert.alert("Error", "Failed to add product to cart.");
-  }
-};
-const renderProductItem = ({ item }:{item:any}) => (
-    <View style={styles.productItem}>
-      <View style={styles.productImageContainer}>
-        <Image source={{ uri: item.image }} style={styles.productImage} />
-        <TouchableOpacity
+  
+  const renderProductItem = ({ item }: { item: Product }) => {
+     const isFavorite = favoriteProducts.some(product => product.id === item.id);
+    const isCart = cartProducts.some(product => product.id === item.id);
+    
+    return (
+      <View style={styles.productItem}>
+        <View style={styles.productImageContainer}>
+          <Image source={{ uri: item.image }} style={styles.productImage} />
+           <TouchableOpacity
           style={styles.favoriteIcon}
-          onPress={() => toggleFavorite(item.id)}
+          onPress={() => toggleFavorite(item)}
         >
-          <Icon
-            name={favoriteProducts.has(item.id) ? 'heart' : 'heart-outline'}
-            size={24}
-            color={favoriteProducts.has(item.id) ? '#e74c3c' : '#fff'}
-          />
+             <Ionicons
+              name={isFavorite ? 'heart' : 'heart-outline'}
+              size={24}
+              color={isFavorite ? Colors.TOGGLE_ICON_ERROR : Colors.PROFILE_OPTION_TOGGLE_DISABLE}
+            />
         </TouchableOpacity>
-      </View>
-      <Text style={styles.productName}>{item.name}</Text>
-      <View style={styles.productPriceContainer}>
-        <Text style={styles.productPrice}>{item.price}</Text>
-        <TouchableOpacity
-          style={styles.cartButton}
-          onPress={() => addToCart(item.id)}
+           <TouchableOpacity
+          style={styles.cartIcon}
+          onPress={() => togglecart(item)}
         >
-          <Icon name="cart-outline" size={24} color="#333" />
+           <Ionicons
+              name={isCart ? 'cart' : 'cart-outline'}
+              size={24}
+              color={isCart ?  Colors.TOGGLE_ICON_ERROR : Colors.PROFILE_OPTION_TOGGLE_DISABLE}
+            />
         </TouchableOpacity>
+        </View>
+        <Text style={styles.productName}>{item.name}</Text>
+        <View style={styles.productPriceContainer}>
+          <Text style={styles.productPrice}>${item.price}</Text>
+          {item.oldPrice && <Text style={styles.oldPrice}>${item.oldPrice}</Text>}
+        </View>
       </View>
-      {item.oldPrice && <Text style={styles.oldPrice}>{item.oldPrice}</Text>}
-    </View>
-  );
+    );
+  };
+
    const openModal = (type:any) => {
     setModalType(type);
     setModalVisible(true);
@@ -186,9 +190,9 @@ const renderProductItem = ({ item }:{item:any}) => (
             {sortedProducts.length === 0 ? (
               <View style={styles.noResultsContainer}>
                 <Image source={require('@/assets/images/search.png')} style={styles.image} />
-                <Text style={styles.message}>Sorry, we couldn't find any matching result for your search.</Text>
+                  <Text style={styles.message}>{TEXT.NO_SEARCH_PRODUCTS}</Text>
                 <TouchableOpacity style={styles.button} onPress={() => setSearchText('')}>
-                  <Text style={styles.buttonText}>Explore Categories</Text>
+                    <Text style={styles.buttonText}>{TEXT.EXPLORE_CATEGORIES}</Text>
                 </TouchableOpacity>
               </View>
             ) : (
@@ -333,7 +337,7 @@ const styles = StyleSheet.create({
   },
   productPrice: {
     fontSize: 14,
-    color: '#e74c3c',
+    color: Colors.CART_ITEM_PRICE,
   },
   oldPrice: {
     fontSize: 12,
@@ -426,4 +430,15 @@ const styles = StyleSheet.create({
   cartButton: {
     marginLeft: 10,
   },
+
+  cartIcon: {
+    position: 'absolute',
+    bottom: 8,
+    right: 8,
+    backgroundColor: Colors.BACKBUTTONBACKGROUND,
+    borderRadius: 16,
+    padding: 4,
+  },
 });
+
+

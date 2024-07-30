@@ -1,57 +1,55 @@
-import React, { useContext } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, SafeAreaView, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { ProductContext } from '../context/ProductContext';
-import { FavoritesContext } from '../context/FavoriteContext';
+import React from 'react';
+import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { Product } from '../models/Product';
-import { Colors } from '@/constants/Colors';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useFavorites } from '../context/FavoriteContext';
+import { Colors } from '@/constants/Colors'; 
+import { TEXT } from '@/constants/Text';
 
-
-const FavoritesScreen = () => {
-  const { allProducts } = useContext(ProductContext) ?? { allProducts: [] };
-  const { favoriteProducts, toggleFavorite } = useContext(FavoritesContext) ?? { favoriteProducts: new Set(), toggleFavorite: () => {} };
-
-  console.log("All Products:", allProducts);
-  console.log("Favorite Products:", Array.from(favoriteProducts));
-
-  const favoriteProductsList = allProducts.filter(product => favoriteProducts.has(product.id));
+const FavoriteScreen: React.FC = () => {
+  const { favoriteProducts, toggleFavorite} = useFavorites();
 
   const renderProductItem = ({ item }: { item: Product }) => {
-    const isFavorite = favoriteProducts.has(item.id);
-
+ const isFavorite = favoriteProducts.some(product => product.id === item.id);
     return (
       <View style={styles.productItem}>
-        <View style={styles.imageContainer}>
+        <View style={styles.productImageContainer}>
           <Image source={{ uri: item.image }} style={styles.productImage} />
           <TouchableOpacity
             style={styles.favoriteIcon}
-            onPress={() => toggleFavorite(item.id)}
+            onPress={() => toggleFavorite(item)}
           >
-            <Icon 
-              name={isFavorite ? 'favorite' : 'favorite-border'} 
-              size={24} 
-              color={isFavorite ? '#ff6347' : '#ccc'} 
+            <Ionicons
+              name={isFavorite ? 'heart' : 'heart-outline'}
+              size={24}
+              color={isFavorite ? Colors.TOGGLE_ICON_ERROR : Colors.PROFILE_OPTION_TOGGLE_DISABLE}
             />
           </TouchableOpacity>
         </View>
         <Text style={styles.productName}>{item.name}</Text>
-        <Text style={styles.productPrice}>{item.price}</Text>
-        {item.oldPrice && <Text style={styles.oldPrice}>{item.oldPrice}</Text>}
+        <View style={styles.productPriceContainer}>
+          <Text style={styles.productPrice}>${item.price}</Text>
+          {item.oldPrice && <Text style={styles.oldPrice}>${item.oldPrice}</Text>}
+        </View>
       </View>
     );
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={favoriteProductsList}
-        renderItem={renderProductItem}
-        keyExtractor={(item) => item.id}
-        numColumns={2}
-        columnWrapperStyle={styles.columnWrapper}
-        contentContainerStyle={styles.productList}
-      />
-    </SafeAreaView>
+    <View style={styles.container}>
+      {favoriteProducts.length > 0 ? (
+        <FlatList
+          data={favoriteProducts}
+          keyExtractor={(item) => item.id}
+          renderItem={renderProductItem}
+          numColumns={2}
+          columnWrapperStyle={styles.columnWrapper}
+          contentContainerStyle={styles.productList}
+        />
+      ) : (
+          <Text style={styles.noFavoritesText}>{TEXT.NO_FAVORITE_PRODUCT}</Text>
+      )}
+    </View>
   );
 };
 
@@ -59,56 +57,63 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.WHITE100,
-    paddingHorizontal: 8,
-  },
-  columnWrapper: {
-    justifyContent: 'space-between',
-    marginBottom: 10,
+    paddingHorizontal: 20,
   },
   productList: {
     paddingBottom: 16,
   },
+  columnWrapper: {
+    justifyContent: 'space-between',
+  },
   productItem: {
     flex: 1,
-    padding: 10,
-    backgroundColor: Colors.BACKBUTTONBACKGROUND,
-    borderRadius: 10,
-    marginHorizontal: 8,
-    marginBottom: 10,
+    backgroundColor: Colors.WHITE100,
+    borderRadius: 8,
+    padding: 8,
+    margin: 8,
     alignItems: 'center',
   },
-  imageContainer: {
+  productImageContainer: {
     position: 'relative',
-    width: '100%',
-    height: 150,
+    marginBottom: 10,
   },
   productImage: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 10,
+    width: 150,
+    height: 150,
+    marginBottom: 8,
   },
   favoriteIcon: {
     position: 'absolute',
     top: 10,
     right: 10,
+    backgroundColor: Colors.BLACK,
+    borderRadius: 12,
+    padding: 5,
   },
   productName: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 5,
-    textAlign: 'center',
+  },
+  productPriceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   productPrice: {
     fontSize: 14,
-    color: Colors.PRODUCT_PRICE,
-    marginBottom: 5,
+    color: '#e74c3c',
   },
   oldPrice: {
     fontSize: 12,
-    color:Colors.OLD_PRICE ,
+    color: '#999',
     textDecorationLine: 'line-through',
+  },
+  noFavoritesText: {
+    fontSize: 16,
+    color: Colors.PRODUCT_PRICE,
+    textAlign: 'center',
+    marginVertical: 20,
   },
 });
 
-export default FavoritesScreen;
-
+export default FavoriteScreen;

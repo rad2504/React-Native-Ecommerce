@@ -22,7 +22,6 @@ export default function AddAddressScreen({ navigation, route }:{navigation:any,r
     const newAddress = { streetAddress, city, state, postcode };
 
     if (address) {
-     
       const updatedAddresses = addresses.map((addr: any) =>
         addr === address ? newAddress : addr
       );

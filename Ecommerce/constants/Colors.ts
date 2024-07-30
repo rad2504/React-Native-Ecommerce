@@ -30,7 +30,7 @@ export const Colors = {
   BORDER: '#ddd',
   TEXT_PRIMARY: '#555',
   TEXT_SECONDARY: '#000',
-  ERROR: 'red',
+  TOGGLE_ICON_ERROR: 'red',
   BACKGROUND_LIGHT2: "#F4F4F4",
   BLACK: "#000000",
   BLACK100: "#272727",
@@ -42,6 +42,7 @@ export const Colors = {
   PRODUCT_PRICE: '#333',
   NOTIFICATION_BUTTON: '#007bff',
   PROFILE_EMAIL: '#777',
-  PROFILE_OPTION: '#ccc',
+  PROFILE_OPTION_TOGGLE_DISABLE: '#ccc',
   PROFILE_EDIT: 'purple',
+  TRANSPARENT: 'transparent',
 };

@@ -6,4 +6,5 @@ export type Product = {
   price: string;
   oldPrice?: string;
   image: string;
+  isFavorite: boolean;
 };

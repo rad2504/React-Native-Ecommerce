@@ -55,20 +55,6 @@ export const useShopScreenViewModel = (initialCategory = 'All') => {
     loadCategories();
     loadProducts();
   }, [selectedCategory]);
-
-
-  const toggleFavorite = useCallback((productId: string) => {
-    setFavoriteProducts((prevFavorites) => {
-      const newFavorites = new Set(prevFavorites);
-      if (newFavorites.has(productId)) {
-        newFavorites.delete(productId);
-      } else {
-        newFavorites.add(productId);
-      }
-      return newFavorites;
-    });
-  }, []);
-
   
 
   return {
@@ -77,7 +63,6 @@ export const useShopScreenViewModel = (initialCategory = 'All') => {
     selectedCategory,
     setSelectedCategory,
     favoriteProducts,
-    toggleFavorite,
     email,
     setEmail,
     password,
