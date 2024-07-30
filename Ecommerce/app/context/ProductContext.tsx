@@ -1,4 +1,3 @@
-// context/ProductContext.tsx
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { Product } from '../models/Product';
 

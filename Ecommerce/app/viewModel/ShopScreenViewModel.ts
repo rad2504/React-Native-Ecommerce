@@ -57,7 +57,7 @@ export const useShopScreenViewModel = (initialCategory = "All") => {
         setProducts(formattedProducts);
       } catch (error) {
         console.error(
-          `Error fetching products for category ${categoryToFetch}:`,
+          `Error fetching products for category ${selectedCategory}:`,
           error
         );
       }

@@ -259,7 +259,6 @@ export default function ShopScreen() {
           </>
         )}
       </ScrollView>
-
       <Modal
         animationType="slide"
         transparent={true}
@@ -297,7 +296,7 @@ export default function ShopScreen() {
                   selectedSort === "lowest" && styles.selectedSortOption,
                 ]}
               >
-                Lowest - Highest Price
+                Lowest Price
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleSortSelection("highest")}>
@@ -307,11 +306,11 @@ export default function ShopScreen() {
                   selectedSort === "highest" && styles.selectedSortOption,
                 ]}
               >
-                Highest - Lowest Price
+                Highest Price
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
-              <Text style={styles.buttonText}>Close</Text>
+              <Text style={styles.closeButtonText}>Close</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -479,14 +478,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: Colors.BLACK,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
-    width: "80%",
-    backgroundColor: Colors.BACKBUTTONBACKGROUND,
+    backgroundColor: Colors.BACKGROUND,
     borderRadius: 10,
     padding: 20,
-    alignItems: "center",
+    width: "80%",
+    maxHeight: "60%",
   },
   sortOptionText: {
     fontSize: 16,
@@ -498,6 +497,10 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     marginTop: 20,
+    paddingVertical: 10,
+    backgroundColor: "#007bff",
+    borderRadius: 5,
+    alignItems: "center",
   },
 
   productPriceContainer: {
@@ -520,5 +523,10 @@ const styles = StyleSheet.create({
   selectedCategoryItem: {
     borderBottomWidth: 2,
     borderBottomColor: Colors.BUTTON,
+  },
+
+  closeButtonText: {
+    color: Colors.WHITE100,
+    fontSize: 16,
   },
 });
