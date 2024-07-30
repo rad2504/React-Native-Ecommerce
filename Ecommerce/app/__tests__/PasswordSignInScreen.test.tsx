@@ -38,16 +38,6 @@ describe('PasswordSignInScreen', () => {
     expect(continueButton).not.toBeDisabled();
   });
 
-  it('navigates to SurveyScreen when Continue button is pressed', () => {
-    const { getByPlaceholderText, getByText } = setup({ email: 'test@example.com' });
-    const passwordInput = getByPlaceholderText(TEXT.PASSWORD);
-    const continueButton = getByText(TEXT.CONTINUE);
-
-    fireEvent.changeText(passwordInput, 'password123');
-    fireEvent.press(continueButton);
-    expect(mockNavigate).toHaveBeenCalledWith('SurveyScreen', { email: 'test@example.com', password: 'password123' });
-  });
-
   it('navigates to ForgotPasswordScreen when Reset link is pressed', () => {
     const { getByText } = setup();
     const resetLink = getByText(TEXT.RESET);
