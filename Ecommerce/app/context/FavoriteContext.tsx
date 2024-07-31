@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Product } from '../models/Product';
+import React, { createContext, useContext, useState, ReactNode } from "react";
+import { Product } from "../models/Product";
 
 interface FavoritesContextType {
   favoriteProducts: Product[];
@@ -7,12 +7,14 @@ interface FavoritesContextType {
   isFavorite: (productId: string) => boolean;
 }
 
-const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
+const FavoritesContext = createContext<FavoritesContextType | undefined>(
+  undefined
+);
 
 export const useFavorites = () => {
   const context = useContext(FavoritesContext);
   if (!context) {
-    throw new Error('useFavorites must be used within a FavoritesProvider');
+    throw new Error("useFavorites must be used within a FavoritesProvider");
   }
   return context;
 };
@@ -33,7 +35,9 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <FavoritesContext.Provider value={{ favoriteProducts, toggleFavorite, isFavorite }}>
+    <FavoritesContext.Provider
+      value={{ favoriteProducts, toggleFavorite, isFavorite }}
+    >
       {children}
     </FavoritesContext.Provider>
   );

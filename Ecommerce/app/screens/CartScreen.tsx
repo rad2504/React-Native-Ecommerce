@@ -1,35 +1,48 @@
-import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { Product } from '../models/Product';
-import { Colors } from '@/constants/Colors'; 
-import { useCart } from '../context/CartContext';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { TEXT } from '@/constants/Text';
+import React from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+} from "react-native";
+import { Product } from "../models/Product";
+import { Colors } from "@/constants/Colors";
+import { useCart } from "../context/CartContext";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { TEXT } from "@/constants/Text";
 
 const FavoriteScreen: React.FC = () => {
-  const { cartProducts, togglecart} = useCart();
+  const { cartProducts, togglecart } = useCart();
 
   const renderProductItem = ({ item }: { item: Product }) => {
-    const isCart = cartProducts.some(product => product.id === item.id);
+    const isCart = cartProducts.some((product) => product.id === item.id);
     return (
       <View style={styles.productItem}>
         <View style={styles.productImageContainer}>
           <Image source={{ uri: item.image }} style={styles.productImage} />
           <TouchableOpacity
-          style={styles.cartIcon}
-          onPress={() => togglecart(item)}
-        >
-           <Ionicons
-              name={isCart ? 'cart' : 'cart-outline'}
+            style={styles.cartIcon}
+            onPress={() => togglecart(item)}
+          >
+            <Ionicons
+              name={isCart ? "cart" : "cart-outline"}
               size={24}
-              color={isCart ? Colors.TOGGLE_ICON_ERROR : Colors.PROFILE_OPTION_TOGGLE_DISABLE}
+              color={
+                isCart
+                  ? Colors.TOGGLE_ICON_ERROR
+                  : Colors.PROFILE_OPTION_TOGGLE_DISABLE
+              }
             />
-        </TouchableOpacity>
+          </TouchableOpacity>
         </View>
         <Text style={styles.productName}>{item.name}</Text>
         <View style={styles.productPriceContainer}>
           <Text style={styles.productPrice}>${item.price}</Text>
-          {item.oldPrice && <Text style={styles.oldPrice}>${item.oldPrice}</Text>}
+          {item.oldPrice && (
+            <Text style={styles.oldPrice}>${item.oldPrice}</Text>
+          )}
         </View>
       </View>
     );
@@ -63,7 +76,7 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
   },
   columnWrapper: {
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   productItem: {
     flex: 1,
@@ -71,10 +84,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 8,
     margin: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
   productImageContainer: {
-    position: 'relative',
+    position: "relative",
     marginBottom: 10,
   },
   productImage: {
@@ -83,7 +96,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   favoriteIcon: {
-    position: 'absolute',
+    position: "absolute",
     top: 10,
     right: 10,
     backgroundColor: Colors.BLACK,
@@ -92,12 +105,12 @@ const styles = StyleSheet.create({
   },
   productName: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   productPriceContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   productPrice: {
     fontSize: 14,
@@ -105,17 +118,17 @@ const styles = StyleSheet.create({
   },
   oldPrice: {
     fontSize: 12,
-    color: '#999',
-    textDecorationLine: 'line-through',
+    color: "#999",
+    textDecorationLine: "line-through",
   },
   noFavoritesText: {
     fontSize: 16,
     color: Colors.PRODUCT_PRICE,
-    textAlign: 'center',
+    textAlign: "center",
     marginVertical: 20,
   },
   cartIcon: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 8,
     right: 8,
     backgroundColor: Colors.BACKBUTTONBACKGROUND,

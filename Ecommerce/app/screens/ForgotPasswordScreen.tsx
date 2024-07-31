@@ -1,26 +1,28 @@
-import { StyleSheet } from 'react-native';
-import {  View } from 'react-native';
-import { TitleText } from '../../components/TitleText'
-import { TEXT} from '../../constants/Text'
-import { Button } from '../../components/Button'
-import { NewTextInput } from '../../components/NewTextInput'
-import {Colors } from '../../constants/Colors'
+import { StyleSheet } from "react-native";
+import { View } from "react-native";
+import { TitleText } from "../../components/TitleText";
+import { TEXT } from "../../constants/Text";
+import { Button } from "../../components/Button";
+import { NewTextInput } from "../../components/NewTextInput";
+import { Colors } from "../../constants/Colors";
 
-
-
-export default function ForgotPasswordScreen({ navigation }: { navigation: any }) {
+export default function ForgotPasswordScreen({
+  navigation,
+}: {
+  navigation: any;
+}) {
   const handleContinue = () => {
     navigation.navigate("EmailForResetPasswordScreen");
   };
   return (
     <View style={styles.container}>
-       <TitleText>{TEXT.FORGOT_PASSWORD}</TitleText>
+      <TitleText>{TEXT.FORGOT_PASSWORD}</TitleText>
       <NewTextInput
         placeholder={TEXT.ENTER_EMAIL}
         keyboardType="email-address"
         autoCapitalize="none"
       />
-       <Button onPress={handleContinue} title={TEXT.CONTINUE}  />
+      <Button onPress={handleContinue} title={TEXT.CONTINUE} />
     </View>
   );
 }

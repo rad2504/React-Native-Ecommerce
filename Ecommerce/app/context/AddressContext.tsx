@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode } from "react";
 
 type Address = {
   streetAddress: string;
@@ -14,7 +14,9 @@ type AddressContextType = {
 
 const AddressContext = createContext<AddressContextType | null>(null);
 
-export const AddressProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AddressProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [addresses, setAddresses] = useState<Address[]>([]);
 
   return (
@@ -27,8 +29,7 @@ export const AddressProvider: React.FC<{ children: ReactNode }> = ({ children })
 export const useAddress = () => {
   const context = useContext(AddressContext);
   if (context === null) {
-    throw new Error('useAddress must be used within an AddressProvider');
+    throw new Error("useAddress must be used within an AddressProvider");
   }
   return context;
 };
-

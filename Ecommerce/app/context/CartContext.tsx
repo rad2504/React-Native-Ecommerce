@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Product } from '../models/Product';
+import React, { createContext, useContext, useState, ReactNode } from "react";
+import { Product } from "../models/Product";
 
 interface CartContextType {
   cartProducts: Product[];
@@ -12,7 +12,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error('useFavorites must be used within a FavoritesProvider');
+    throw new Error("useFavorites must be used within a FavoritesProvider");
   }
   return context;
 };

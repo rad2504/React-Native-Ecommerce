@@ -1,54 +1,79 @@
-import React from 'react';
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { TitleText } from '../../components/TitleText';
-import { Colors } from '../../constants/Colors';
-import { useAddress } from '../context/AddressContext';
-import { TEXT } from '@/constants/Text';
+import React from "react";
+import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { TitleText } from "../../components/TitleText";
+import { Colors } from "../../constants/Colors";
+import { useAddress } from "../context/AddressContext";
+import { TEXT } from "@/constants/Text";
 
-
-export default function AddressDetailsScreen({ navigation }:{navigation:any}) {
+export default function AddressDetailsScreen({
+  navigation,
+}: {
+  navigation: any;
+}) {
   const { addresses, setAddresses } = useAddress();
 
   const handleAddAddress = () => {
-    navigation.navigate('AddAddressScreen');
+    navigation.navigate("AddAddressScreen");
   };
 
   const handleEditAddress = (address: any) => {
-    navigation.navigate('AddAddressScreen', { address });
+    navigation.navigate("AddAddressScreen", { address });
   };
 
   const renderAddressList = () => {
-    return addresses.map((address: { streetAddress: any; city: any; state: any; postcode: any; }, index: React.Key | null | undefined) => (
-      <View key={index} style={styles.addressContainer}>
-        <Text style={styles.addressText} numberOfLines={1} ellipsizeMode='tail'>
-          {`${address.streetAddress}, ${address.city}, ${address.state} ${address.postcode}`}
-        </Text>
-        <TouchableOpacity onPress={() => handleEditAddress(address)} style={styles.editButton}>
-                <Text style={styles.editButtonText}>{TEXT.EDIT_BUTTON_ADDRESS}</Text>
-        </TouchableOpacity>
-      </View>
-    ));
+    return addresses.map(
+      (
+        address: { streetAddress: any; city: any; state: any; postcode: any },
+        index: React.Key | null | undefined
+      ) => (
+        <View key={index} style={styles.addressContainer}>
+          <Text
+            style={styles.addressText}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {`${address.streetAddress}, ${address.city}, ${address.state} ${address.postcode}`}
+          </Text>
+          <TouchableOpacity
+            onPress={() => handleEditAddress(address)}
+            style={styles.editButton}
+          >
+            <Text style={styles.editButtonText}>
+              {TEXT.EDIT_BUTTON_ADDRESS}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )
+    );
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}
+      >
         <Ionicons name="arrow-back" size={24} color="black" />
       </TouchableOpacity>
       <TitleText>Address Details</TitleText>
       {addresses.length === 0 ? (
         <View style={styles.noAddressContainer}>
-                  <Text style={styles.noAddressText}>{TEXT.DONT_HAVE_ADDRESS}</Text>
+          <Text style={styles.noAddressText}>{TEXT.DONT_HAVE_ADDRESS}</Text>
           <TouchableOpacity onPress={handleAddAddress}>
-                      <Text style={styles.addButtonText}>{TEXT.ADD_ADDRESS}</Text>
+            <Text style={styles.addButtonText}>{TEXT.ADD_ADDRESS}</Text>
           </TouchableOpacity>
         </View>
       ) : (
         <>
           {renderAddressList()}
-          <TouchableOpacity onPress={handleAddAddress} style={styles.addMoreButton}>
-                          <Text style={styles.addMoreButtonText}>{TEXT.ADD_MORE_BUTTON_ADDRESS}</Text>
+          <TouchableOpacity
+            onPress={handleAddAddress}
+            style={styles.addMoreButton}
+          >
+            <Text style={styles.addMoreButtonText}>
+              {TEXT.ADD_MORE_BUTTON_ADDRESS}
+            </Text>
           </TouchableOpacity>
         </>
       )}
@@ -63,23 +88,23 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   backButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 50,
     left: 20,
     width: 40,
     height: 40,
     borderRadius: 20,
     backgroundColor: Colors.BACKBUTTONBACKGROUND,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   addressContainer: {
     backgroundColor: Colors.BACKBUTTONBACKGROUND,
     borderRadius: 8,
     padding: 15,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginVertical: 10,
   },
   addressText: {
@@ -94,9 +119,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   noAddressContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     marginVertical: 20,
   },
   noAddressText: {
@@ -105,14 +130,14 @@ const styles = StyleSheet.create({
   addButtonText: {
     color: Colors.BUTTON,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   addMoreButton: {
     marginTop: 20,
     padding: 15,
     backgroundColor: Colors.BUTTON,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
   addMoreButtonText: {
     color: Colors.WHITE100,

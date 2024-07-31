@@ -1,30 +1,31 @@
-import { Colors } from '@/constants/Colors';
-import { TEXT } from '@/constants/Text';
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Colors } from "@/constants/Colors";
+import { TEXT } from "@/constants/Text";
+import React from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
-const NotificationScreen = ({ navigation}: { navigation: any }) => {
- const handleExploreButton = () => {
-    navigation.navigate('ShopScreen');
+const NotificationScreen = ({ navigation }: { navigation: any }) => {
+  const handleExploreButton = () => {
+    navigation.navigate("ShopScreen");
   };
   return (
     <View style={styles.noResultsContainer}>
-        <Image source={require('@/assets/images/notification-bell.png')} style={styles.image} />
+      <Image
+        source={require("@/assets/images/notification-bell.png")}
+        style={styles.image}
+      />
       <Text style={styles.message}>{TEXT.NO_NOTIFICATIONS}</Text>
-        <TouchableOpacity style={styles.button} onPress={handleExploreButton} >
+      <TouchableOpacity style={styles.button} onPress={handleExploreButton}>
         <Text style={styles.buttonText}>{TEXT.EXPLORE_CATEGORIES}</Text>
-        </TouchableOpacity>
-      </View>
-    
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-
   noResultsContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 20,
   },
   image: {
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   message: {
     fontSize: 16,
     color: Colors.PRODUCT_PRICE,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 20,
   },
   button: {

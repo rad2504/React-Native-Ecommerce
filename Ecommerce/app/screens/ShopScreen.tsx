@@ -39,8 +39,7 @@ export default function ShopScreen() {
 
   const { categories, products, selectedCategory, setSelectedCategory } =
     useShopScreenViewModel(selectedCategory);
-  
-   
+
   const filteredProducts = useMemo(() => {
     const lowercasedSearchText = searchText.toLowerCase();
     return products.filter((product) =>

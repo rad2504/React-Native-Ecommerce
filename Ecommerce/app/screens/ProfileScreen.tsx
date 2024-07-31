@@ -1,23 +1,32 @@
-import { Colors } from '@/constants/Colors';
-import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity } from 'react-native';
+import { Colors } from "@/constants/Colors";
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 
-const ProfileScreen = ({route,navigation}:{route:any, navigation:any}) => {
- 
+const ProfileScreen = ({
+  route,
+  navigation,
+}: {
+  route: any;
+  navigation: any;
+}) => {
   const { email } = route.params;
   const handleAddressButton = () => {
-    navigation.navigate('AddressDetailsScreen');
+    navigation.navigate("AddressDetailsScreen");
   };
 
-  const name = email ? email.split('@')[0] : 'User';
+  const name = email ? email.split("@")[0] : "User";
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.profileContainer}>
-        <Image
-          source={{ uri: '' }}
-          style={styles.profileImage}
-        />
+        <Image source={{ uri: "" }} style={styles.profileImage} />
         <View style={styles.userInfo}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.email}>{email}</Text>
@@ -56,8 +65,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.WHITE100,
   },
   profileContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 20,
     backgroundColor: Colors.BACKGROUND_LIGHT2,
     borderRadius: 10,
@@ -74,7 +83,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   email: {
     fontSize: 16,
@@ -97,7 +106,7 @@ const styles = StyleSheet.create({
   },
   signOutButton: {
     marginTop: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   signOutText: {
     color: Colors.TOGGLE_ICON_ERROR,

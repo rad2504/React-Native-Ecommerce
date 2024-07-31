@@ -1,13 +1,15 @@
-import { StyleSheet } from 'react-native';
-import { View, Image } from 'react-native';
-import { TitleText } from '../../components/TitleText'
-import { TEXT} from '../../constants/Text'
-import { Button } from '../../components/Button'
-import {Colors } from '../../constants/Colors'
+import { StyleSheet } from "react-native";
+import { View, Image } from "react-native";
+import { TitleText } from "../../components/TitleText";
+import { TEXT } from "../../constants/Text";
+import { Button } from "../../components/Button";
+import { Colors } from "../../constants/Colors";
 
-
-
-export default function EmailForResetPasswordScreen({ navigation }: { navigation: any }) {
+export default function EmailForResetPasswordScreen({
+  navigation,
+}: {
+  navigation: any;
+}) {
   const handleReturn = () => {
     navigation.navigate("SignInScreen");
   };
@@ -16,12 +18,12 @@ export default function EmailForResetPasswordScreen({ navigation }: { navigation
       <View style={styles.centerContainer}>
         <Image
           style={styles.socialIcon}
-          source={require('@/assets/images/sent.png')}
+          source={require("@/assets/images/sent.png")}
         />
       </View>
       <TitleText>{TEXT.SENT_EMAIL}</TitleText>
       <View style={styles.centerContainer}>
-        <Button onPress={handleReturn} title={TEXT.RETURN_LOGIN}  />
+        <Button onPress={handleReturn} title={TEXT.RETURN_LOGIN} />
       </View>
     </View>
   );
@@ -35,7 +37,7 @@ const styles = StyleSheet.create({
     paddingTop: 90,
   },
   centerContainer: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   socialIcon: {
     width: 100,
@@ -43,4 +45,3 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
 });
-
